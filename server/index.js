@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
@@ -30,19 +29,6 @@ const GroupRouter = require('./Router/group.router');
 app.use('/users', UserRouter);
 app.use('/messages', messageRouter);
 app.use('/group', GroupRouter);
-
-// Serve client
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-  
-    app.get('*', (req, res) =>
-      res.sendFile(
-        path.resolve(__dirname, '../', 'client', 'build', 'index.html')
-      )
-    );
-  } else {
-    app.get('/', (req, res) => res.send('Please set to production'));
-  }
 
 
 const PORT = process.env.PORT || 5000;
